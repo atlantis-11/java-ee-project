@@ -21,6 +21,12 @@ public class Book {
     @Column(name = "author")
     private String author;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "cover_url")
+    private String coverUrl;
+
     public Book() {
 
     }

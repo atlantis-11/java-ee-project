@@ -1,13 +1,14 @@
 package com.example.javaeeproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "book")
-@Getter @Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Book {
     @Id
@@ -27,7 +28,6 @@ public class Book {
     @Column(name = "cover_url")
     private String coverUrl;
 
-    public Book() {
-
-    }
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews;
 }

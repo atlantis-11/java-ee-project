@@ -7,6 +7,8 @@ import java.util.List;
 public interface BookService {
     List<Book> findAll();
 
+    List<Book> findByTitle(String title);
+
     Book findById(int id);
 
     Book findByIdAndFetchReviews(int id);

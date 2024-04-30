@@ -39,7 +39,7 @@ public class ReviewController {
         return "redirect:/books/" + reviewDTO.getBookId();
     }
 
-    @GetMapping("/delete")
+    @RequestMapping(value = "/delete", params = "bookId", method = RequestMethod.GET)
     public String deleteReview(@RequestParam int bookId) {
         Review review = reviewService.findByUsernameAndBookId(getCurrentUsername(), bookId);
 

@@ -17,6 +17,10 @@
     </style>
 </head>
 <body>
+    <form class="container d-flex mt-3 mb-0 col-md-6 col-sm-12"
+          th:action="@{/books/list}" method="get">
+        <input class="form-control" placeholder="Enter title" name="title" th:value="${param.title}">
+    </form>
     <div class="container d-flex justify-content-center flex-wrap">
         <div th:each="book : ${books}" class="card m-3 col-md-3 col-sm-12">
             <img class="card-img-top" th:src="${book.coverUrl}" alt="Book cover">

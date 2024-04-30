@@ -31,6 +31,15 @@ public class BookController {
         return "list-books";
     }
 
+    @RequestMapping(value = "/list", params = "title", method = RequestMethod.GET)
+    public String listBooks(Model model, @RequestParam String title) {
+        List<Book> books = bookService.findByTitle(title);
+
+        model.addAttribute("books", books);
+
+        return "list-books";
+    }
+
     @GetMapping("/{id}")
     public String showBook(@PathVariable int id, Model model) {
         Book book = bookService.findByIdAndFetchReviews(id);

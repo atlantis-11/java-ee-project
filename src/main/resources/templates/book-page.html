@@ -1,11 +1,12 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-    <title>Document</title>
+    <title th:text="${book.title}"></title>
 </head>
 <body>
     <div class="container d-flex mt-5">
@@ -18,10 +19,33 @@
                 <h6 class="card-subtitle text-muted" th:text="${'by ' + book.author}"></h6>
                 <p class="card-text mt-3" th:text="${book.description}"></p>
 
-                <ul>
-                    <li th:each="review : ${book.reviews}" th:text="${review.user.username + ' - ' + review.review}"></li>
-                </ul>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/books/{id}/edit(id=${book.id})}" class="card-link">Edit</a>
+                    <a th:href="@{/books/{id}/delete(id=${book.id})}" class="card-link">Delete</a>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <h3 class="mb-3 ms-3">Your review</h3>
+
+        <form action="#" th:action="@{/reviews/add}"
+              th:object="${reviewDTO}" method="POST">
+            <input th:field="*{bookId}" type="hidden">
+            <textarea th:field="*{content}" class="form-control" placeholder="Write your review"></textarea>
+            <button class="btn btn-primary mt-2" th:text="${reviewDTO.content != null ? 'Save' : 'Post'}"></button>
+
+            <a th:if="${reviewDTO.content != null}"
+               class="btn btn-danger mt-2"
+               th:href="@{/reviews/delete(bookId=${book.id})}">Delete</a>
+        </form>
+
+        <div th:each="review : ${book.reviews}" class="p-2 w-75 center mx-auto">
+            <a th:text="${review.user.username}" class="text-decoration-none ms-2"></a>
+            <div class="border rounded p-3 mt-2 mb-0"
+                 th:text="${review.content}"
+                 style="white-space:pre"></div>
         </div>
     </div>
 </body>

@@ -9,6 +9,8 @@ public interface BookService {
 
     Book findById(int id);
 
+    Book findByIdAndFetchReviews(int id);
+
     void save(Book book);
 
     void deleteById(int id);

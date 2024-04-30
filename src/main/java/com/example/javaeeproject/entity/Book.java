@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -28,6 +28,6 @@ public class Book {
     @Column(name = "cover_url")
     private String coverUrl;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL)
     private List<Review> reviews;
 }

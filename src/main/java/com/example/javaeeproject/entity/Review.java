@@ -20,6 +20,6 @@ public class Review {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @Column(name = "review")
-    private String review;
+    @Column(name = "content")
+    private String content;
 }

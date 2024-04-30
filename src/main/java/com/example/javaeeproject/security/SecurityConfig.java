@@ -22,6 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                 configurer
+                    .requestMatchers("/signup").permitAll()
                     .requestMatchers("/books/add").hasRole("ADMIN")
                     .requestMatchers("/books/*/edit").hasRole("ADMIN")
                     .requestMatchers("/books/*/delete").hasRole("ADMIN")

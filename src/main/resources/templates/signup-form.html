@@ -1,0 +1,14 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/head::head-metadata}"></th:block>
+    <title>Sign up</title>
+</head>
+<body>
+    <form class="container border rounded col-md-4 col-sm-12 p-3 mt-5"
+          th:action="@{/signup}" method="post" th:object="${user}">
+        <input th:field="*{username}" class="form-control mb-3" placeholder="Username">
+        <input type="password" th:field="*{password}" placeholder="Password" class="form-control mb-3">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+</body>
+</html>

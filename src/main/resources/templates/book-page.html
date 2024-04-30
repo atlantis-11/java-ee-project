@@ -41,8 +41,8 @@
                th:href="@{/reviews/delete(bookId=${book.id})}">Delete</a>
         </form>
 
-        <div th:each="review : ${book.reviews}" class="p-2 w-75 center mx-auto">
-            <a th:text="${review.user.username}" class="text-decoration-none ms-2"></a>
+        <div th:each="review : ${book.reviews}" class="p-2 w-75 mx-auto">
+            <a th:href="@{/users/{username}(username=${review.user.username})}" th:text="${review.user.username}" class="text-decoration-none ms-2"></a>
             <div class="border rounded p-3 mt-2 mb-0"
                  th:text="${review.content}"
                  style="white-space:pre"></div>

@@ -10,7 +10,7 @@
 <body>
     <div class="px-3 mt-5">
         <div class="col-md-6 col-sm-12 border rounded mx-auto p-3">
-            <form action="#" th:action="@{/books/} + ${mode}"
+            <form action="#" th:action="@{/books/{mode}(mode=${mode})}"
                   th:object="${book}" method="POST" class="m-0">
                 <h3 class="mb-3 ms-3" th:text="${(mode == 'add' ? 'Add new' : 'Edit') + ' book'}"></h3>
 

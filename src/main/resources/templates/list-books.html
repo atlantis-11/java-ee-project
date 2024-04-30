@@ -1,4 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="~{fragments/head::head-metadata}"></th:block>
     <title>Books</title>
@@ -17,8 +18,9 @@
 
     <form class="container d-flex mt-3 mb-0 col-md-6 col-sm-12"
           th:action="@{/books/list}" method="get">
-        <input class="form-control" placeholder="Enter title" name="title" th:value="${param.title}">
+        <input class="form-control" placeholder="Enter title to search for" name="title" th:value="${param.title}">
     </form>
+
     <div class="container d-flex justify-content-center flex-wrap">
         <div th:each="book : ${books}" class="card m-3 col-md-3 col-sm-12">
             <img class="card-img-top" th:src="${book.coverUrl}" alt="Book cover">
@@ -29,6 +31,10 @@
                 <a th:href="@{/books/{id}(id=${book.id})}" class="card-link">View</a>
             </div>
         </div>
+    </div>
+
+    <div sec:authorize="hasRole('ADMIN')" class="d-flex justify-content-center mb-3">
+        <a class="btn btn-primary" th:href="@{/books/add}">Add new book</a>
     </div>
 </body>
 </html>

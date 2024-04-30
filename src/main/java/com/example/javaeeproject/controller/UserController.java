@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -26,5 +28,10 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "user-page";
+    }
+
+    @GetMapping("/me")
+    public String showUser(Principal principal) {
+        return "forward:/users/" + principal.getName();
     }
 }

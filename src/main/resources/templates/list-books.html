@@ -1,10 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <th:block th:replace="~{fragments/head::head-metadata}"></th:block>
     <title>Books</title>
 
     <style>
@@ -17,6 +13,8 @@
     </style>
 </head>
 <body>
+    <div th:replace="~{fragments/header::header}"></div>
+
     <form class="container d-flex mt-3 mb-0 col-md-6 col-sm-12"
           th:action="@{/books/list}" method="get">
         <input class="form-control" placeholder="Enter title" name="title" th:value="${param.title}">

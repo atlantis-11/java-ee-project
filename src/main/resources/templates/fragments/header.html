@@ -1,0 +1,9 @@
+<header class="p-3 text-bg-dark" th:fragment="header">
+    <div class="container">
+        <ul class="nav col-12 justify-content-center">
+            <li><a th:href="@{/books/list}" class="nav-link px-2 text-white">Books</a></li>
+            <li><a th:href="@{/users/me}" class="nav-link px-2 text-white">My reviews</a></li>
+            <li><a th:href="@{/logout}" class="nav-link px-2 text-white ms-5">Logout</a></li>
+        </ul>
+    </div>
+</header>

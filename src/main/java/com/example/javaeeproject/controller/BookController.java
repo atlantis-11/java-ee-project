@@ -7,10 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-
-import static com.example.javaeeproject.utils.Utils.getCurrentUsername;
 
 @Controller
 @RequestMapping("/books")
@@ -41,11 +40,11 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String showBook(@PathVariable int id, Model model) {
+    public String showBook(@PathVariable int id, Model model, Principal principal) {
         Book book = bookService.findByIdAndFetchReviews(id);
 
         Review review = book.getReviews().stream()
-            .filter(r -> Objects.equals(r.getUser().getUsername(), getCurrentUsername()))
+            .filter(r -> Objects.equals(r.getUser().getUsername(), principal.getName()))
             .findFirst().orElse(null);
 
         ReviewDTO reviewDTO = new ReviewDTO(

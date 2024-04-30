@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.javaeeproject.utils.Utils.getCurrentUsername;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/reviews")
@@ -27,9 +27,9 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public String addReview(@ModelAttribute("review") ReviewDTO reviewDTO) {
+    public String addReview(@ModelAttribute("review") ReviewDTO reviewDTO, Principal principal) {
         Review review = new Review(
-            userService.findByUsername(getCurrentUsername()),
+            userService.findByUsername(principal.getName()),
             bookService.findById(reviewDTO.getBookId()),
             reviewDTO.getContent()
         );
@@ -40,8 +40,8 @@ public class ReviewController {
     }
 
     @RequestMapping(value = "/delete", params = "bookId", method = RequestMethod.GET)
-    public String deleteReview(@RequestParam int bookId) {
-        Review review = reviewService.findByUsernameAndBookId(getCurrentUsername(), bookId);
+    public String deleteReview(@RequestParam int bookId, Principal principal) {
+        Review review = reviewService.findByUsernameAndBookId(principal.getName(), bookId);
 
         if (review != null) {
             reviewService.deleteById(new ReviewId(review.getUser(), review.getBook()));

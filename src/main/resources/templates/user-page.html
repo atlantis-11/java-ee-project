@@ -10,7 +10,12 @@
         <h3 class="text-center" th:text="${user.username + '''s reviews'}"></h3>
 
         <div th:each="review : ${user.reviews}" class="p-2 w-75 mx-auto">
-            <a th:href="@{/books/{id}(id=${review.book.id})}" th:text="${review.book.title}" class="text-decoration-none ms-2"></a>
+
+            <div class="d-flex">
+                <a th:href="@{/books/{id}(id=${review.book.id})}" th:text="${review.book.title}" class="text-decoration-none ms-2"></a>
+                <p th:text="${#dates.format(review.date, 'dd-MM-yyyy HH:mm')}" class="ms-2 text-muted"></p>
+            </div>
+
             <div class="border rounded p-3 mt-2 mb-0"
                  th:text="${review.content}"
                  style="white-space:pre"></div>

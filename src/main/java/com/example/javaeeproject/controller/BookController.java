@@ -47,12 +47,10 @@ public class BookController {
             .filter(r -> Objects.equals(r.getUser().getUsername(), principal.getName()))
             .findFirst().orElse(null);
 
-        ReviewDTO reviewDTO = new ReviewDTO(
-            id, review == null ? null : review.getContent()
-        );
+        String reviewContent = review == null ? null : review.getContent();
 
         model.addAttribute("book", book);
-        model.addAttribute("reviewDTO", reviewDTO);
+        model.addAttribute("reviewContent", reviewContent);
 
         return "book-page";
     }

@@ -28,15 +28,15 @@
     <div class="container mt-3">
         <h3 class="mb-3 ms-3">Your review</h3>
 
-        <form action="#" th:action="@{/reviews/add}"
-              th:object="${reviewDTO}" method="POST">
-            <input th:field="*{bookId}" type="hidden">
-            <textarea th:field="*{content}" class="form-control" placeholder="Write your review"></textarea>
-            <button class="btn btn-primary mt-2" th:text="${reviewDTO.content != null ? 'Save' : 'Post'}"></button>
+        <form th:action="@{/books/{bookId}/reviews/add(bookId=${book.id})}" method="POST">
+            <textarea th:text="${reviewContent}" name="reviewContent"
+                      class="form-control" placeholder="Write your review"></textarea>
 
-            <a th:if="${reviewDTO.content != null}"
+            <button class="btn btn-primary mt-2" th:text="${reviewContent != null ? 'Save' : 'Post'}"></button>
+
+            <a th:if="${reviewContent != null}"
                class="btn btn-danger mt-2"
-               th:href="@{/reviews/delete(bookId=${book.id})}">Delete</a>
+               th:href="@{/books/{bookId}/reviews/delete(bookId=${book.id})}">Delete</a>
         </form>
 
         <div th:each="review : ${book.reviews}" class="p-2 w-75 mx-auto">

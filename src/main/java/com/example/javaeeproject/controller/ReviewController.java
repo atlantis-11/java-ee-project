@@ -1,7 +1,6 @@
 package com.example.javaeeproject.controller;
 
 import com.example.javaeeproject.entity.Review;
-import com.example.javaeeproject.entity.ReviewDTO;
 import com.example.javaeeproject.entity.ReviewId;
 import com.example.javaeeproject.service.BookService;
 import com.example.javaeeproject.service.ReviewService;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/reviews")
+@RequestMapping("/books/{bookId}/reviews")
 public class ReviewController {
     private final BookService bookService;
     private final UserService userService;
@@ -27,20 +26,22 @@ public class ReviewController {
     }
 
     @PostMapping("/add")
-    public String addReview(@ModelAttribute("review") ReviewDTO reviewDTO, Principal principal) {
+    public String addReview(@PathVariable int bookId,
+                            @RequestParam String reviewContent,
+                            Principal principal) {
         Review review = new Review(
             userService.findByUsername(principal.getName()),
-            bookService.findById(reviewDTO.getBookId()),
-            reviewDTO.getContent()
+            bookService.findById(bookId),
+            reviewContent
         );
 
         reviewService.save(review);
 
-        return "redirect:/books/" + reviewDTO.getBookId();
+        return "redirect:/books/" + bookId;
     }
 
-    @RequestMapping(value = "/delete", params = "bookId", method = RequestMethod.GET)
-    public String deleteReview(@RequestParam int bookId, Principal principal) {
+    @GetMapping("/delete")
+    public String deleteReview(@PathVariable int bookId, Principal principal) {
         Review review = reviewService.findByUsernameAndBookId(principal.getName(), bookId);
 
         if (review != null) {

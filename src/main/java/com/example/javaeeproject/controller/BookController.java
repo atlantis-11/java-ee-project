@@ -79,6 +79,10 @@ public class BookController {
     public String showEditForm(@PathVariable int id, Model model) {
         Book book = bookService.findById(id);
 
+        if (book == null) {
+            throw new AppException("Book with id=" + id + " was not found");
+        }
+
         model.addAttribute("book", book);
         model.addAttribute("mode", "edit");
 
@@ -94,6 +98,10 @@ public class BookController {
 
     @GetMapping("/{id}/delete")
     public String deleteBook(@PathVariable int id) {
+        if (bookService.findById(id) == null) {
+            throw new AppException("Book with id=" + id + " was not found");
+        }
+
         bookService.deleteById(id);
 
         return "redirect:/books/list";

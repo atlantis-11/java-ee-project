@@ -3,6 +3,8 @@ package com.example.javaeeproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "review")
 @IdClass(ReviewId.class)
@@ -22,4 +24,8 @@ public class Review {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 }

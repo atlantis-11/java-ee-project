@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/books/{bookId}/reviews")
@@ -32,7 +33,8 @@ public class ReviewController {
         Review review = new Review(
             userService.findByUsername(principal.getName()),
             bookService.findById(bookId),
-            reviewContent
+            reviewContent,
+            new Date()
         );
 
         reviewService.save(review);

@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
-    @Query("select b from Book b join fetch b.reviews where b.id = :id")
+    @Query("select b from Book b left join fetch b.reviews where b.id = :id")
     Book findByIdAndFetchReviews(@Param("id") int id);
 
     @Query("select b from Book b where b.title ilike %:title%")

@@ -29,5 +29,6 @@ public class Book {
     private String coverUrl;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL)
+    @OrderBy("date desc")
     private List<Review> reviews;
 }

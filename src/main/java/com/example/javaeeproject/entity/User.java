@@ -22,5 +22,6 @@ public class User {
     private boolean enabled;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OrderBy("date desc")
     private List<Review> reviews;
 }

@@ -42,6 +42,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void saveAndFlush(Book book) {
+        bookRepository.saveAndFlush(book);
+    }
+
+    @Override
     public void deleteById(int id) {
         bookRepository.deleteById(id);
     }

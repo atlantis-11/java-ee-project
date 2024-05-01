@@ -2,8 +2,10 @@ package com.example.javaeeproject.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -26,6 +28,8 @@ public class SecurityConfig {
                     .requestMatchers("/books/add").hasRole("ADMIN")
                     .requestMatchers("/books/*/edit").hasRole("ADMIN")
                     .requestMatchers("/books/*/delete").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/**").hasRole("USER")
+                    .requestMatchers("/api/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
             .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
@@ -33,6 +37,8 @@ public class SecurityConfig {
             .exceptionHandling(configurer ->
                 configurer.accessDeniedPage("/access-denied.html")
             );
+
+        http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

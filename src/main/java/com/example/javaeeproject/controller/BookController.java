@@ -1,6 +1,7 @@
 package com.example.javaeeproject.controller;
 
 import com.example.javaeeproject.entity.*;
+import com.example.javaeeproject.error.AppException;
 import com.example.javaeeproject.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,10 @@ public class BookController {
     @GetMapping("/{id}")
     public String showBook(@PathVariable int id, Model model, Principal principal) {
         Book book = bookService.findByIdAndFetchReviews(id);
+
+        if (book == null) {
+            throw new AppException("Book with id=" + id + " was not found");
+        }
 
         Review review = book.getReviews().stream()
             .filter(r -> Objects.equals(r.getUser().getUsername(), principal.getName()))

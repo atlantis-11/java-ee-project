@@ -2,6 +2,7 @@
                 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:replace="~{fragments/head::head-metadata}"></th:block>
+    <script th:src="@{/review-form.js}"></script>
     <title th:text="${book.title}"></title>
 </head>
 <body>

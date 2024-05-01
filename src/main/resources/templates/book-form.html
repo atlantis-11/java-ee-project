@@ -2,6 +2,7 @@
 <head>
     <th:block th:replace="~{fragments/head::head-metadata}"></th:block>
     <title th:text="${(mode == 'add' ? 'Add new' : 'Edit') + ' book'}"></title>
+    <script th:src="@{/book-form.js}"></script>
 </head>
 <body>
     <div th:replace="~{fragments/header::header}"></div>
@@ -14,19 +15,19 @@
 
                 <input type="hidden" th:field="*{id}">
 
-                <input type="text" th:field="*{title}"
-                       class="form-control my-2" placeholder="Title">
+                <input type="text" th:field="*{title}" name="title"
+                       class="form-control" placeholder="Title">
 
-                <input type="text" th:field="*{author}"
-                       class="form-control my-2" placeholder="Author">
+                <input type="text" th:field="*{author}" name="author"
+                       class="form-control mt-3" placeholder="Author">
 
-                <textarea th:field="*{description}"
-                          class="form-control my-2" placeholder="Description"></textarea>
+                <textarea th:field="*{description}" name="description"
+                          class="form-control mt-3" placeholder="Description"></textarea>
 
-                <input type="text" th:field="*{coverUrl}"
-                       class="form-control my-2" placeholder="Cover URL">
+                <input type="text" th:field="*{coverUrl}" name="coverUrl"
+                       class="form-control mt-3" placeholder="Cover URL">
 
-                <button type="submit" class="btn btn-primary mt-2"
+                <button type="submit" class="btn btn-primary mt-3"
                         th:text="${mode == 'add' ? 'Add' : 'Save'}"></button>
             </form>
         </div>

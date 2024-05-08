@@ -70,9 +70,9 @@ public class BookController {
 
     @PostMapping("/add")
     public String addBook(@ModelAttribute("book") Book book) {
-        bookService.save(book);
+        bookService.saveAndFlush(book);
 
-        return "redirect:/books/list";
+        return "redirect:/books/" + book.getId();
     }
 
     @GetMapping("/{id}/edit")
@@ -91,9 +91,9 @@ public class BookController {
 
     @PostMapping("/edit")
     public String editBook(@ModelAttribute("book") Book book) {
-        bookService.save(book);
+        bookService.saveAndFlush(book);
 
-        return "redirect:/books/list";
+        return "redirect:/books/" + book.getId();
     }
 
     @GetMapping("/{id}/delete")
